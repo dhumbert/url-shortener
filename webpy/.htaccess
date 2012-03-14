@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>      
+  RewriteEngine on
+  RewriteBase /
+  
+  RewriteRule ^static - [L,NC]
+  RewriteRule ^favicon.ico$ static/favicon.ico [L,NC]
+  
+  RewriteCond %{REQUEST_URI} !^(/.*)+app.py/
+  RewriteRule ^(.*)$ app.py/$1 [PT]
+</IfModule>
