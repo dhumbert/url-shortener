@@ -11,7 +11,7 @@ urls = (
 )
 
 # do some configuration
-web.config.base_url = 'http://localhost/url_shortener/webpy/'
+web.config.base_url = 'http://webpyus'
 
 # init app
 webpyapp = web.application(urls, globals())
