@@ -9,6 +9,7 @@ import web, helper, model
 urls = (
     '^/?$', 'index',
     '/shorten', 'shorten',
+    '/url/([0-9]+)', 'url',
     '/([0-9A-Za-z]+)', 'redirect',
 )
 
@@ -42,6 +43,13 @@ class shorten:
         web.ctx.session.flash = 'Shortened URL <a href="'+helper.site_url('/'+hash)+'">'+helper.site_url('/'+hash)+'</a> created';
         raise web.seeother(helper.site_url())
 
+class url:
+    def DELETE(self, id):
+        try:
+            model.delete_url(id)
+        except KeyError:
+            raise web.notfound()
+        
 class redirect:
     def GET(self, hash):
         try:

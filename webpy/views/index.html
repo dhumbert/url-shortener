@@ -2,24 +2,24 @@ $def with (urls, encode_hash)
 
 $if not urls:
 	No shortened URLs found.
-	
-<table class="table table-bordered table-striped">
-	<thead>
-		<tr>
-			<th>Original URL</th>
-			<th>Shortened URL</th>
-			<th># Clicks</th>
-			<th></td>
-		</tr>
-	</thead>
-	
-	$for url in urls:
-		<tr>
-			<td><a href="$url.url" target="_blank">$url.url</a></td>
-			<td><a href="$url.hashed_url" target="_blank">$url.hashed_url</a></td>
-			<td><a href="javascript:void(0);">$url.num_views</a></td>
-			<td>
-				<a href="$helper.site_url('/url/'+str(url.id))" class="delete-url btn btn-danger" data-loading-text="Deleting URL...">Delete</a>
-			</td>
-		</tr>
-</table>
+$else:
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Original URL</th>
+				<th>Shortened URL</th>
+				<th># Clicks</th>
+				<th></td>
+			</tr>
+		</thead>
+		
+		$for url in urls:
+			<tr>
+				<td><a href="$url.url" target="_blank">$url.url</a></td>
+				<td><a href="$url.hashed_url" target="_blank">$url.hashed_url</a></td>
+				<td><a href="javascript:void(0);">$url.num_views</a></td>
+				<td>
+					<a href="$helper.site_url('/url/'+str(url.id))" class="delete-url btn btn-danger" data-loading-text="Deleting URL...">Delete</a>
+				</td>
+			</tr>
+	</table>

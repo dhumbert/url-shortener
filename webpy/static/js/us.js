@@ -2,11 +2,12 @@ jQuery(document).ready(function($){
 	if ($('a.delete-url').length) {
 		$('a.delete-url').button();
 		$('a.delete-url').click(function(){
+			$row = $(this).closest('tr');
 			$(this).button('loading');
 			var url = $(this).attr('href');
 			
 			$.delete_(url, {}, function(){
-			
+				$row.fadeOut('fast');
 			});
 			
 			return false;

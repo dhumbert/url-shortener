@@ -56,7 +56,13 @@ def attach_url_data(url):
     url.num_views = num_views[0].num_views
     
     return url
+ 
+def delete_url(id):
+    if not id:
+        raise KeyError('URL not found')
     
+    db.delete('urls', where="id=$id", vars={'id':id})
+ 
 def encode_hash(id):
     return base62_encode(id)
 
