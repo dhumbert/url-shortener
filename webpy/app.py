@@ -8,6 +8,8 @@ import web, helper, model
 
 urls = (
     '^/?$', 'index',
+    '/shorten', 'shorten',
+    '/([0-9A-Za-z]+)', 'redirect',
 )
 
 # do some configuration
@@ -32,7 +34,17 @@ view = web.template.render('views/', base='base', globals = { 'helper': helper, 
 class index:
     def GET(self):
         return view.index()
+        
+class shorten:
+    def POST(self):
+        hash = model.shorten(web.input().url)
+        raise web.seeother(helper.site_url('/'+hash))
 
+class redirect:
+    def GET(self, hash):
+        url = model.redirect(hash)
+        raise web.seeother(url)
+        
 # run it
 if __name__ == "__main__":
     webpyapp.run()

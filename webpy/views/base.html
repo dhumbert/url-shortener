@@ -27,8 +27,8 @@ $#
                     </a>
 					
 					<div class="generate-form">
-						<form class="form-inline">
-							<input type="text" class="input-xlarge" placeholder="URL to Shorten">							
+						<form class="form-inline" method="post" action="$helper.site_url('/shorten')">
+							<input type="text" name="url" class="input-xlarge" placeholder="URL to Shorten">							
 							<button type="submit" class="btn">Shorten!</button>
 						</form>
 					</div>
