@@ -27,8 +27,21 @@ def redirect(hash):
     url = db.select('urls', where='id=$id', vars=locals(), limit=1)
     if not url:
         raise KeyError('URL not found')
-        
-    return url[0].url
+    
+    url = url[0]
+    
+    record(url.id)
+    
+    return url.url
+
+def record(id):
+    db.insert('redirects',
+        url_id = id,
+        ip = web.ctx.env['REMOTE_ADDR'],
+        user_agent = web.ctx.env['HTTP_USER_AGENT'],
+        referrer = web.ctx.env['HTTP_REFERER'],
+        created = datetime.now()
+    )
     
 def urls():
     return db.select('urls', order="created DESC")
