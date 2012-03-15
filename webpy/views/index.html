@@ -3,7 +3,15 @@ $def with (urls, encode_hash)
 $if not urls:
 	No shortened URLs found.
 	
-<table class="table table-bordered">
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Original URL</th>
+			<th>Shortened URL</th>
+			<th># Clicks</th>
+		</tr>
+	</thead>
+	
 	$for url in urls:
 		<tr>
 			<td><a href="$url.url" target="_blank">$url.url</a></td>
