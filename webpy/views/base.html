@@ -22,13 +22,16 @@ $#
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="#">
+                    <a class="brand" href="$helper.site_url()">
                         dhwebco URL shortener
                     </a>
-                        <ul class="nav">
-                            <li class="active"><a href="$helper.site_url()">Shorten a URL</a></li>
-                            <li><a href="$helper.site_url('/stats')">Statistics</a></li>
-                        </ul>
+					
+					<div class="generate-form">
+						<form class="form-inline">
+							<input type="text" class="input-xlarge" placeholder="URL to Shorten">							
+							<button type="submit" class="btn">Shorten!</button>
+						</form>
+					</div>
                 </div>
             </div>
         </div>

@@ -1,1 +1,10 @@
+.navbar .generate-form {
+	width: 355px;
+	float: right;
+	position: relative;
+	top: 5px;
+}
 
+.navbar .generate-form input {
+	margin-top: 5px;
+}
