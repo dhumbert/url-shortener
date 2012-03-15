@@ -27,7 +27,7 @@ def session_hook():
 webpyapp.add_processor(web.loadhook(session_hook))
 
 # set up views
-view = web.template.render('views/', base='base', globals = { 'helper': helper })
+view = web.template.render('views/', base='base', globals = { 'helper': helper, 'str': str })
 
 
 # page handlers

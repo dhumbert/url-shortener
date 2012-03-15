@@ -2,6 +2,7 @@ import web, helper
 from datetime import datetime
 
 db = web.database(dbn='mysql', host='localhost', db='urlshort', user='root', passwd='')
+# base 62 encode table IDs: http://stackoverflow.com/questions/742013/how-to-code-a-url-shortener
 ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 def shorten(url):
