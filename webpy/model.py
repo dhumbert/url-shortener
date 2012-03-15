@@ -36,7 +36,7 @@ def redirect(hash):
     return url.url
 
 def record(id):
-    db.insert('redirects',
+    db.insert('clicks',
         url_id = id,
         ip = web.ctx.env['REMOTE_ADDR'],
         user_agent = web.ctx.env['HTTP_USER_AGENT'],
@@ -51,10 +51,18 @@ def urls():
     
 def attach_url_data(url):
     url.hashed_url = helper.site_url('/'+encode_hash(url.id))
+    url.clicks = db.select('clicks', where="url_id=$url_id", vars={'url_id': url.id}, order='created ASC')
     
-    num_views = db.query('SELECT COUNT(id) AS num_views FROM redirects WHERE url_id=$url_id', vars={'url_id':url.id});
-    url.num_views = num_views[0].num_views
+    return url
     
+def get_url(id):
+    if not id:
+        raise KeyError('URL not found')
+    
+    url = db.select('urls', where="id=$id", vars={'id':id}, limit=1)
+    url = url[0]
+    
+    url = attach_url_data(url)
     return url
  
 def delete_url(id):

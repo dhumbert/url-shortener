@@ -44,6 +44,10 @@ class shorten:
         raise web.seeother(helper.site_url())
 
 class url:
+    def GET(self, id):
+        url = model.get_url(id)
+        return view.url(url)
+        
     def DELETE(self, id):
         try:
             model.delete_url(id)

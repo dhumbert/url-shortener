@@ -1,0 +1,26 @@
+$def with (url)
+
+<h1>$url.url</h1>
+
+<p><a href="$url.hashed_url" target="_blank">$url.hashed_url</a></p>
+
+$if not url.clicks:
+	No clicks found.
+$else:
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Date &amp; Time</th>
+				<th>IP</th>
+				<th>User Agent</th>
+				<th>Referrer</td>
+			</tr>
+		</thead>
+		$for click in url.clicks:
+			<tr>
+				<td>$click.created</td>
+				<td>$click.ip</td>
+				<td>$click.user_agent</td>
+				<td>$click.referrer</td>
+			</tr>
+	</table>
