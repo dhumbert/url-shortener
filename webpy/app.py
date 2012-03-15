@@ -11,7 +11,7 @@ urls = (
 )
 
 # do some configuration
-web.config.base_url = 'http://webpyus'
+web.config.base_url = 'http://localhost:8080'
 
 # init app
 webpyapp = web.application(urls, globals())
