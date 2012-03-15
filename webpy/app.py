@@ -39,7 +39,8 @@ class index:
 class shorten:
     def POST(self):
         hash = model.shorten(web.input().url)
-        raise web.seeother(helper.site_url('/'+hash))
+        web.ctx.session.flash = 'Shortened URL created'
+        raise web.seeother(helper.site_url())
 
 class redirect:
     def GET(self, hash):
