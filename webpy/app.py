@@ -46,7 +46,9 @@ class redirect:
         try:
             url = model.redirect(hash)
             raise web.seeother(url)
-        except:
+        except KeyError:
+            raise web.notfound()
+        except ValueError:
             raise web.notfound()
         
 # run it
