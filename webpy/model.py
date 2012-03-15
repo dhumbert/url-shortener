@@ -1,4 +1,4 @@
-import web
+import web, helper
 from datetime import datetime
 
 db = web.database(dbn='mysql', host='localhost', db='urlshort', user='root', passwd='')
@@ -44,7 +44,17 @@ def record(id):
     )
     
 def urls():
-    return db.select('urls', order="created DESC")
+    urls = db.select('urls', order="created DESC")
+    urls = map(attach_url_data, urls)
+    return urls
+    
+def attach_url_data(url):
+    url.hashed_url = helper.site_url('/'+encode_hash(url.id))
+    
+    num_views = db.query('SELECT COUNT(id) AS num_views FROM redirects WHERE url_id=$url_id', vars={'url_id':url.id});
+    url.num_views = num_views[0].num_views
+    
+    return url
     
 def encode_hash(id):
     return base62_encode(id)

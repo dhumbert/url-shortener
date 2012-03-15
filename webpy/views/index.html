@@ -7,6 +7,7 @@ $if not urls:
 	$for url in urls:
 		<tr>
 			<td><a href="$url.url" target="_blank">$url.url</a></td>
-			<td><a href="$helper.site_url('/'+encode_hash(url.id))" target="_blank">$helper.site_url('/'+encode_hash(url.id))</a></td>
+			<td><a href="$url.hashed_url" target="_blank">$url.hashed_url</a></td>
+			<td><a href="javascript:void(0);">$url.num_views</a></td>
 		</tr>
 </table>
