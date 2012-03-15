@@ -42,8 +42,11 @@ class shorten:
 
 class redirect:
     def GET(self, hash):
-        url = model.redirect(hash)
-        raise web.seeother(url)
+        try:
+            url = model.redirect(hash)
+            raise web.seeother(url)
+        except:
+            raise web.notfound()
         
 # run it
 if __name__ == "__main__":
