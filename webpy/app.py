@@ -33,7 +33,8 @@ view = web.template.render('views/', base='base', globals = { 'helper': helper }
 # page handlers
 class index:
     def GET(self):
-        return view.index()
+        urls = model.urls()
+        return view.index(urls, model.encode_hash)
         
 class shorten:
     def POST(self):

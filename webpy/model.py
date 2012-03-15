@@ -30,6 +30,9 @@ def redirect(hash):
         
     return url[0].url
     
+def urls():
+    return db.select('urls', order="created DESC")
+    
 def encode_hash(id):
     return base62_encode(id)
 

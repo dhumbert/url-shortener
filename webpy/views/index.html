@@ -1,0 +1,12 @@
+$def with (urls, encode_hash)
+
+$if not urls:
+	No shortened URLs found.
+	
+<table class="table table-bordered">
+	$for url in urls:
+		<tr>
+			<td><a href="$url.url" target="_blank">$url.url</a></td>
+			<td><a href="$helper.site_url('/'+encode_hash(url.id))" target="_blank">$helper.site_url('/'+encode_hash(url.id))</a></td>
+		</tr>
+</table>
