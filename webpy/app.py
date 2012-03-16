@@ -26,6 +26,7 @@ web.config.db_pass = environment_config.db_pass
 webpyapp = web.application(urls, globals())
 
 # start session
+web.config.session_parameters['cookie_path'] = '/'
 session = web.session.Session(webpyapp, web.session.DiskStore('sessions'), initializer = {'flash': None })
 # add session to web context
 def session_hook():
@@ -103,5 +104,5 @@ class redirect:
 if __name__ == "__main__":
     webpyapp.run()
 else:
-    web.config.debug = True
+    web.config.debug = False
     application = webpyapp.wsgifunc()
