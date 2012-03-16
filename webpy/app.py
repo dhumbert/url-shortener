@@ -40,7 +40,7 @@ class index:
 class shorten:
     def POST(self):
         hash = model.shorten(web.input().url)
-        web.ctx.session.flash = 'Shortened URL <a href="'+helper.site_url('/'+hash)+'">'+helper.site_url('/'+hash)+'</a> created';
+        web.ctx.session.flash = 'Shortened URL <a target="_blank" href="'+helper.site_url('/'+hash)+'">'+helper.site_url('/'+hash)+'</a> created';
         raise web.seeother(helper.site_url())
 
 class url:

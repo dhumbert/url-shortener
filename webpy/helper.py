@@ -12,15 +12,15 @@ def print_flash():
     if web.ctx.session.flash is not None:
         flash = web.ctx.session.flash
         web.ctx.session.flash = None
-        return ("<div class=\"alert-message info\">"
-                "<a class=\"close\" href=\"javascript:void(0);\">x</a>"
-                "<p>"+flash+"</p>"
+        return ("<div class=\"alert\">"
+                "<a class=\"close\" href=\"javascript:void(0);\">&times;</a>"
+                +flash+
                 "</div>")
 
 def print_error(message):
-    return ("<div class=\"alert-message error\">"
-            "<a class=\"close\" href=\"javascript:void(0);\">x</a>"
-            "<p>"+message+"</p>"
+    return ("<div class=\"alert alert-error\">"
+            "<a class=\"close\" href=\"javascript:void(0);\">&times;</a>"
+            +message+
             "</div>")
 
 def get_value(key, obj, default=''):
