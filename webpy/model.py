@@ -58,11 +58,16 @@ def redirect(hash):
     return url.url
 
 def record(id):
+    if 'HTTP_REFERER' in web.ctx.env:
+        referrer = web.ctx.env['HTTP_REFERER']
+    else:
+        referrer = ''
+        
     db.insert('clicks',
         url_id = id,
         ip = web.ctx.env['REMOTE_ADDR'],
         user_agent = web.ctx.env['HTTP_USER_AGENT'],
-        referrer = web.ctx.env['HTTP_REFERER'],
+        referrer = referrer,
         created = datetime.now()
     )
     
