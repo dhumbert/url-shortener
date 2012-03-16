@@ -17,8 +17,9 @@ $else:
 			<tr>
 				<td><a href="$url.url" target="_blank">$url.url</a></td>
 				<td><a href="$url.hashed_url" target="_blank">$url.hashed_url</a></td>
-				<td><a href="$helper.site_url('/url/'+str(url.id))">$len(url.clicks)</a></td>
+				<td>$len(url.clicks)</td>
 				<td class="actions">
+					<a href="$helper.site_url('/url/'+str(url.id))" class="btn">Detail</a>
 					<a href="$helper.site_url('/url/'+str(url.id))" class="delete-url btn btn-danger" data-loading-text="Deleting URL...">Delete</a>
 				</td>
 			</tr>
