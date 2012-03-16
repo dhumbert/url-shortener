@@ -8,3 +8,8 @@
 .navbar .generate-form input {
 	margin-top: 5px;
 }
+
+.table-urls td.actions {
+	width: 10em;
+	text-align: center;
+}
