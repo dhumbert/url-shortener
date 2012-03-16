@@ -12,13 +12,13 @@ def print_flash():
     if web.ctx.session.flash is not None:
         flash = web.ctx.session.flash
         web.ctx.session.flash = None
-        return ("<div class=\"alert\">"
+        return ("<div class=\"alert\" data-dismiss=\"alert\">"
                 "<a class=\"close\" href=\"javascript:void(0);\">&times;</a>"
                 +flash+
                 "</div>")
 
 def print_error(message):
-    return ("<div class=\"alert alert-error\">"
+    return ("<div class=\"alert alert-error\" data-dismiss=\"alert\">"
             "<a class=\"close\" href=\"javascript:void(0);\">&times;</a>"
             +message+
             "</div>")
