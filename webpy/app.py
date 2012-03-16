@@ -46,7 +46,7 @@ class index:
 
 class login:
     def GET(self):
-        yield 'adsf'
+        return view.login()
         
 class shorten:
     def POST(self):
