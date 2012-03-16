@@ -1,7 +1,14 @@
-import web, helper
+import web, helper, app
 from datetime import datetime
 
-db = web.database(dbn='mysql', host='localhost', db='urlshort', user='root', passwd='')
+db = web.database(
+    dbn=web.config.db_dbn, 
+    host=web.config.db_host, 
+    db=web.config.db_name, 
+    user=web.config.db_user, 
+    passwd=web.config.db_pass
+)
+
 # base 62 encode table IDs: http://stackoverflow.com/questions/742013/how-to-code-a-url-shortener
 ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 

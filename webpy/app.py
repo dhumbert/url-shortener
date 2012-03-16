@@ -4,7 +4,7 @@ if __name__ != "__main__": #if run via wsgi, make sure to chdir into the appropr
 	sys.path.append(abspath)
 	os.chdir(abspath)
 
-import web, helper, model
+import web, helper, model, environment_config
 
 urls = (
     '^/?$', 'index',
@@ -14,7 +14,12 @@ urls = (
 )
 
 # do some configuration
-web.config.base_url = 'http://localhost:8080'
+web.config.base_url = environment_config.url
+web.config.db_dbn = environment_config.db_dbn
+web.config.db_host = environment_config.db_host
+web.config.db_name = environment_config.db_name
+web.config.db_user = environment_config.db_user
+web.config.db_pass = environment_config.db_pass
 
 # init app
 webpyapp = web.application(urls, globals())

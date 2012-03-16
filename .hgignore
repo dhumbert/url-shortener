@@ -1,3 +1,4 @@
 syntax: glob
 *.pyc
 webpy/sessions/*
+webpy/environment_config.py
