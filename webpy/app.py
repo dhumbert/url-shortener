@@ -4,10 +4,11 @@ if __name__ != "__main__": #if run via wsgi, make sure to chdir into the appropr
 	sys.path.append(abspath)
 	os.chdir(abspath)
 
-import web, helper, model, environment_config
+import web, helper, model, environment_config, auth
 
 urls = (
     '^/?$', 'index',
+    '/login', 'login',
     '/shorten', 'shorten',
     '/url/([0-9]+)', 'url',
     '/([0-9A-Za-z]+)', 'redirect',
@@ -38,9 +39,14 @@ view = web.template.render('views/', base='base', globals = { 'helper': helper, 
 
 # page handlers
 class index:
+    @auth.restricted
     def GET(self):
         urls = model.urls()
         return view.index(urls, model.encode_hash)
+
+class login:
+    def GET(self):
+        yield 'adsf'
         
 class shorten:
     def POST(self):
