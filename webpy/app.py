@@ -4,7 +4,7 @@ if __name__ != "__main__": #if run via wsgi, make sure to chdir into the appropr
 	sys.path.append(abspath)
 	os.chdir(abspath)
 
-import web, helper, model, environment_config, auth
+import web, helper, model, environment_config
 
 urls = (
     '^/?$', 'index',
@@ -33,13 +33,23 @@ def session_hook():
 
 webpyapp.add_processor(web.loadhook(session_hook))
 
+# @restricted decorator to require login
+def restricted(func):
+    def decorator(self, *args, **kwargs):
+        if not hasattr(web.ctx.session, 'user_id'):
+            raise web.seeother(helper.site_url('/login'))
+        else:
+            return func(self, *args, **kwargs)
+        
+    return decorator 
+
 # set up views
 view = web.template.render('views/', base='base', globals = { 'helper': helper, 'str': str })
 
 
 # page handlers
 class index:
-    @auth.restricted
+    @restricted
     def GET(self):
         urls = model.urls()
         return view.index(urls, model.encode_hash)
@@ -47,6 +57,15 @@ class index:
 class login:
     def GET(self):
         return view.login()
+    
+    def POST(self):
+        try:
+            model.login(web.input())
+            raise web.seeother(helper.site_url())
+        except ValueError as e:
+            web.ctx.session.flash = 'Invalid login'
+            raise web.seeother(helper.site_url('/login'))
+        
         
 class shorten:
     def POST(self):
@@ -79,7 +98,7 @@ class redirect:
             raise web.notfound()
         except ValueError:
             raise web.notfound()
-        
+           
 # run it
 if __name__ == "__main__":
     webpyapp.run()

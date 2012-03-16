@@ -1,4 +1,4 @@
-import web, helper, app
+import web, helper, app, hashlib
 from datetime import datetime
 from urlparse import urlparse
 
@@ -93,6 +93,26 @@ def delete_url(id):
     
     db.delete('urls', where="id=$id", vars={'id':id})
  
+def login(data):
+    password = hash_password(data.email, data.password)
+    
+    users = db.select('users',
+        where="email=$email AND password=$password",
+        vars={'email': data.email, 'password': password}
+    )
+    
+    if len(users) == 0:
+        raise ValueError('Invalid login')
+        
+    user_id = users[0].id
+    web.ctx.session.user_id = user_id
+    return user_id
+ 
+def hash_password(email, passwd):
+    hash = hashlib.sha1()
+    hash.update(email + passwd)
+    return hash.hexdigest().upper()
+
 def encode_hash(id):
     return base62_encode(id)
 
