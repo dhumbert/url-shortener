@@ -1,5 +1,6 @@
 import web, helper, app
 from datetime import datetime
+from urlparse import urlparse
 
 db = web.database(
     dbn=web.config.db_dbn, 
@@ -16,11 +17,22 @@ def shorten(url):
     if not url:
         raise ValueError('URL cannot be blank')
     
-    if url[:7] != 'http://':
-        url = 'http://' + url
+    parse_result = urlparse(url)
+    parsed = ''
+    
+    if parse_result.scheme:
+        parsed = parsed + parse_result.scheme + '://'
+    else:
+        parsed = parsed + 'http://'
+        
+    parsed = parsed + parse_result.netloc
+    parsed = parsed + parse_result.path
+    
+    if parse_result.query:
+        parsed = parsed + '?' + parse_result.query
     
     id = db.insert('urls', 
-        url=url,
+        url=parsed,
         created=datetime.now()
     )
     
