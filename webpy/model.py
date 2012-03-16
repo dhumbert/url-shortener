@@ -9,6 +9,9 @@ def shorten(url):
     if not url:
         raise ValueError('URL cannot be blank')
     
+    if url[:7] != 'http://':
+        url = 'http://' + url
+    
     id = db.insert('urls', 
         url=url,
         created=datetime.now()
